@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missing Person Details</title>
+    <style>
+        body {
+            background-image: url('static/images/r.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 36px;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            display: none; /* Hide the form initially */
+        }
+        label {
+            font-size: 18px;
+            color: #666;
+            display: block;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+        input[type="text"],
+        input[type="file"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin: 0 auto;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .newtons-cradle {
+            --uib-size: 50px;
+            --uib-speed: 1.2s;
+            --uib-color: #474554;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--uib-size);
+            height: var(--uib-size);
+            margin-bottom: 20px; /* Space between the loader and form */
+        }
+        .newtons-cradle__dot {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            width: 25%;
+            transform-origin: center top;
+        }
+        .newtons-cradle__dot::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 25%;
+            border-radius: 50%;
+            background-color: var(--uib-color);
+        }
+        .newtons-cradle__dot:first-child {
+            animation: swing var(--uib-speed) linear infinite;
+        }
+        .newtons-cradle__dot:last-child {
+            animation: swing2 var(--uib-speed) linear infinite;
+        }
+        @keyframes swing {
+            0% {
+                transform: rotate(0deg);
+                animation-timing-function: ease-out;
+            }
+            25% {
+                transform: rotate(70deg);
+                animation-timing-function: ease-in;
+            }
+            50% {
+                transform: rotate(0deg);
+                animation-timing-function: linear;
+            }
+        }
+        @keyframes swing2 {
+            0% {
+                transform: rotate(0deg);
+                animation-timing-function: linear;
+            }
+            50% {
+                transform: rotate(0deg);
+                animation-timing-function: ease-out;
+            }
+            75% {
+                transform: rotate(-70deg);
+                animation-timing-function: ease-in;
+            }
+        }
+        .alert-success {
+            width: 190px;
+            height: 100px;
+            background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+            border-radius: 20px;
+            display: none; /* Hide the alert initially */
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px; /* Space between the form and alert */
+        }
+    </style>
+</head>
+<body>
+    <div class="newtons-cradle">
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+    </div>
+    <h1>Enter Missing Person Details</h1>
+    <form id="registerForm" action="/register" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" id="phone_number" name="phone_number" pattern="\d{10}" title="Please enter a valid 10-digit phone number" required>
+        <label for="image">Database Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <input type="submit" value="Register">
+    </form>
+    <div class="alert-success" id="successMessage">Registration Successful!</div>
+
+    <script>
+        function validateForm() {
+            var phoneNumber = document.getElementById("phone_number").value;
+            if (phoneNumber.length !== 10 || isNaN(phoneNumber)) {
+                alert("Please enter a valid 10-digit phone number.");
+                return false;
+            }
+            return true;
+        }
+
+        window.onload = function() {
+            // Simulate loading time
+            setTimeout(function() {
+                document.querySelector('.newtons-cradle').style.display = 'none';
+                document.querySelector('#registerForm').style.display = 'block';
+            }, 2000); // Adjust the delay as needed
+        };
+
+        // Function to show success message
+        function showSuccessMessage() {
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        // Check if success parameter is in URL
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('success')) {
+                showSuccessMessage();
+            }
+        });
+    </script>
+</body>
+</html>

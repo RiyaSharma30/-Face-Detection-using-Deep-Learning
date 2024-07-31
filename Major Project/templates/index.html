@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Home Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: black url('static/images/b.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white; /* Text color */
+            font-family: Arial, sans-serif; /* Font family */
+            margin: 0; /* Remove default margin */
+            padding: 20px; /* Add some padding */
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Full viewport height */
+            justify-content: center;
+        }
+        h1 {
+            font-size: 5vw;  /* Adjusted to a larger, responsive size */
+            width: 100%;
+            text-align: left;
+            font-family: 'Cactus Classical Serif', serif;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 20px;
+            right: 0;
+            margin: 0;  /* Ensure no default margin */
+            padding: 20px 0;  /* Add some padding for spacing */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%; /* Take up half the screen */
+            height: 100%; /* Full height of viewport */
+            position: absolute;
+            left: 0; /* Align to the left */
+        }
+        button {
+            width: 18em;
+            height: 4em;
+            border-radius: 30em;
+            font-size: 15px;
+            font-family: inherit;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+            margin-bottom: 20px; /* Add some space between buttons */
+            color: black; /* Button text color */
+        }
+        button::before {
+            content: '';
+            width: 0;
+            height: 4em;
+            border-radius: 30em;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(to right, #964491 0%, #0e80c7 100%);
+            transition: .5s ease;
+            display: block;
+            z-index: -1;
+        }
+        button:hover::before {
+            width: 18em;
+        }
+        a {
+            color: inherit; /* Inherit text color from button */
+            text-decoration: none; /* Remove underline */
+            display: block; /* Make link fill the button */
+            height: 100%; /* Make link fill the button */
+            width: 100%; /* Make link fill the button */
+            line-height: 4em; /* Center text vertically */
+            text-align: center; /* Center text horizontally */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <button><a href="/register">Missing Person Details</a></button><br>
+        <button><a href="/find_missing_person">Check Missing Person</a></button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('success')) {
+                alert('Registration successful!');
+            }
+        });
+    </script>
+</body>
+</html>
